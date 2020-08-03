@@ -1,1 +1,3 @@
 # weather-dashboard
+
+The homework assignment was to use a third party API to retrieve data, and to deploy a fully functioning weather dashboard that includes current and future weather conditions for the city that was submitted.  The dashboard shall append the cities that were searched for and the user shall be able to click on them, and be able to see that cities weather that was previously searched for. 
