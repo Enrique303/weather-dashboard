@@ -1,9 +1,13 @@
 $(document).ready(function(){
-
-  $(".btn").on("click", function(){
-      var cityTerm = $("#city-input").val();
-
-      console.log(cityTerm)
+  var city = JSON.parse(localStorage.getItem("city")) || [];
+  $(".btn").on("click" , function(){
+    var cityTerm = $("#city-input").val();
+    if(city.indexOf(cityTerm)){
+      city.push(cityTerm)
+      localStorage.setItem("city", JSON.stringify(city));
+    }  
+    console.log(cityTerm)
+    
 
 
     searchWeather(cityTerm)
@@ -29,13 +33,25 @@ function searchWeather(searchTerm) {
 
       $("#today").append(card.append(cardBody.append(cardTitle, tempEl)))
 
-      // getForecast(currentWeatherData.coord.lat, currentWeatherData.lon)
+      
     }
+  }).then(function(getForecast){
+    var lat = currentWeatherData.coord.lat;
+    var lon = currentWeatherData.coord.lon;
+    $.ajax({
+      type: "GET",
+      url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + getForecast +lat+ "&lon=" + lon + "&units=imperial&daily&appid=" + apiKey,
+      dataType: "json",
+      
+      success: function(weekForcast){
+        console.log(weekForecast)
+      }
+
+    })
+
   })
 }
-function getForcast(){
 
-}
 
 
 });
